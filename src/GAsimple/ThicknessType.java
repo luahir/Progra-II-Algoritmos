@@ -4,21 +4,29 @@ package GAsimple;
  *
  * @author L. Antonio Hidalgo
  */
-public enum SpreadType {
-    oneLane(0), 
-    twoLanes(86),
-    threeLanes(171);
+public enum ThicknessType {
+    fivePx(0), 
+    sixPx(23),
+    sevenPx(47),
+    eightPx(70),
+    ninePx(94),
+    tenPx(117),
+    elevenPx(141),
+    twelvePx(164),
+    thirtPx(187),
+    fourtPx(210),
+    fiftPx(233);
     
     private final int _LowerByteBoundary;
     
-    private SpreadType(final int pLowerByteBoundary) {
+    private ThicknessType(final int pLowerByteBoundary) {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static SpreadType getZoneType(int pLowerBoundary) {
-        SpreadType zone = oneLane;
+    public static ThicknessType getZoneType(int pLowerBoundary) {
+        ThicknessType zone = fivePx;
         
-        for(SpreadType tryZone : values()) {
+        for(ThicknessType tryZone : values()) {
             if(tryZone._LowerByteBoundary <= pLowerBoundary)
                 zone = tryZone;
         }
