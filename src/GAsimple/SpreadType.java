@@ -25,8 +25,8 @@ public enum SpreadType {
         return zone;
     }
     
-    public static void main(String[] args) {
-        
-        //System.out.println(SpreadType.getZoneType(95));
-    }
+//    public static void main(String[] args) {
+//        
+//        System.out.println(SpreadType.getZoneType(95));
+//    }
 }

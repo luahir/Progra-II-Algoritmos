@@ -18,32 +18,32 @@ public class WeaponIndividual {
         return _SpreadGenes;
     }
 
-    public void setSpreadGenes(BitSet _SpreadGenes) {
-        this._SpreadGenes = _SpreadGenes;
+    public void setSpreadGenes(BitSet pSpreadGenes) {
+        _SpreadGenes = pSpreadGenes;
     }
 
     public BitSet getColorGenes() {
         return _ColorGenes;
     }
 
-    public void setColorGenes(BitSet _ColorGenes) {
-        this._ColorGenes = _ColorGenes;
+    public void setColorGenes(BitSet pColorGenes) {
+        _ColorGenes = pColorGenes;
     }
 
     public BitSet getThicknessGenes() {
         return _ThicknessGenes;
     }
 
-    public void setThicknessGenes(BitSet _ThicknessGenes) {
-        this._ThicknessGenes = _ThicknessGenes;
+    public void setThicknessGenes(BitSet pThicknessGenes) {
+        _ThicknessGenes = pThicknessGenes;
     }
 
     public BitSet getShapeGenes() {
         return _ShapeGenes;
     }
 
-    public void setShapeGenes(BitSet _ShapeGenes) {
-        this._ShapeGenes = _ShapeGenes;
+    public void setShapeGenes(BitSet pShapeGenes) {
+        _ShapeGenes = pShapeGenes;
     }
     
     /**
@@ -64,4 +64,10 @@ public class WeaponIndividual {
         return DEFAULTGENELENGTH;
     }
     
+    public static void main(String[] args) {
+        WeaponIndividual weaponTest = new WeaponIndividual();
+        weaponTest.generateWeaponIndividual();
+        System.out.println(weaponTest.getColorGenes().cardinality());
+        System.out.println(weaponTest.getColorGenes().toString());
+    }
 }

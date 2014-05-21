@@ -4,7 +4,7 @@ package GAsimple;
  *
  * @author L. Antonio Hidalgo
  */
-public enum ThicknessType {
+public enum ColorType {
     fivePx(0), 
     sixPx(23),
     sevenPx(47),
@@ -19,14 +19,14 @@ public enum ThicknessType {
     
     private final int _LowerByteBoundary;
     
-    private ThicknessType(final int pLowerByteBoundary) {
+    private ColorType(final int pLowerByteBoundary) {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static ThicknessType getZoneType(int pLowerBoundary) {
-        ThicknessType zone = fivePx;
+    public static ColorType getZoneType(int pLowerBoundary) {
+        ColorType zone = fivePx;
         
-        for(ThicknessType tryZone : values()) {
+        for(ColorType tryZone : values()) {
             if(tryZone._LowerByteBoundary <= pLowerBoundary)
                 zone = tryZone;
         }
