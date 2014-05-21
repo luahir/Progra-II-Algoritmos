@@ -15,7 +15,7 @@ public enum SpreadType {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static SpreadType getZoneType(int pLowerBoundary) {
+    public static SpreadType getSpreadType(int pLowerBoundary) {
         SpreadType zone = oneLane;
         
         for(SpreadType tryZone : values()) {

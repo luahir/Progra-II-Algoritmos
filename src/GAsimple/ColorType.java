@@ -5,17 +5,10 @@ package GAsimple;
  * @author L. Antonio Hidalgo
  */
 public enum ColorType {
-    fivePx(0), 
-    sixPx(23),
-    sevenPx(47),
-    eightPx(70),
-    ninePx(94),
-    tenPx(117),
-    elevenPx(141),
-    twelvePx(164),
-    thirtPx(187),
-    fourtPx(210),
-    fiftPx(233);
+    green(0), 
+    yellow(63),
+    red(127),
+    surpriseColor(192);
     
     private final int _LowerByteBoundary;
     
@@ -23,8 +16,8 @@ public enum ColorType {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static ColorType getZoneType(int pLowerBoundary) {
-        ColorType zone = fivePx;
+    public static ColorType getColorType(int pLowerBoundary) {
+        ColorType zone = green;
         
         for(ColorType tryZone : values()) {
             if(tryZone._LowerByteBoundary <= pLowerBoundary)

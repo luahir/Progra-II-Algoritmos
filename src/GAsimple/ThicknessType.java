@@ -23,7 +23,7 @@ public enum ThicknessType {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static ThicknessType getZoneType(int pLowerBoundary) {
+    public static ThicknessType getThicknessType(int pLowerBoundary) {
         ThicknessType zone = fivePx;
         
         for(ThicknessType tryZone : values()) {
@@ -35,6 +35,6 @@ public enum ThicknessType {
     
 //    public static void main(String[] args) {
 //        
-//        System.out.println(ThicknessType.getZoneType(95));
+//        System.out.println(ThicknessType.getThicknessType(95));
 //    }
 }
