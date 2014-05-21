@@ -7,13 +7,13 @@ import java.util.List;
  *
  * @author L. Antonio Hidalgo
  */
-public class ZonePopulation {
-    private List<ZoneIndividual> _Population = new ArrayList<>();
+public class WeaponPopulation {
+    private List<WeaponIndividual> _Population = new ArrayList<>();
     
-    public ZonePopulation() {
+    public WeaponPopulation() {
         
         for(int individual = 0; individual < 9; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.REG);
             
@@ -21,7 +21,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 7; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K20);
             
@@ -29,7 +29,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 6; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K50);
             
@@ -37,7 +37,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 6; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K100);
             
@@ -45,7 +45,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 4; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K200);
             
@@ -53,7 +53,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 4; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K500);
             
@@ -61,7 +61,7 @@ public class ZonePopulation {
         }
         
         for(int individual = 0; individual < 2; ++individual) {
-            ZoneIndividual tempIndividual = new ZoneIndividual();
+            WeaponIndividual tempIndividual = new WeaponIndividual();
             
             tempIndividual.generateIndividual(PrizeType.K1M);
             
@@ -70,7 +70,7 @@ public class ZonePopulation {
         
     }
     
-    public List<ZoneIndividual> getPopulation() {
+    public List<WeaponIndividual> getPopulation() {
         return _Population;
     }
 }

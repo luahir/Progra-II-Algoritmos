@@ -5,19 +5,19 @@ package GAsimple;
  * @author L. Antonio Hidalgo
  */
 public enum ColorType {
-    green(0), 
-    yellow(63),
-    red(127),
-    surpriseColor(192);
+    GREENT(0), 
+    YELLOWT(63),
+    REDT(127),
+    SURPRISET(192);
     
     private final int _LowerByteBoundary;
-    
-    private ColorType(final int pLowerByteBoundary) {
+        
+    private ColorType(int pLowerByteBoundary) {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
     public static ColorType getColorType(int pLowerBoundary) {
-        ColorType zone = green;
+        ColorType zone = null;
         
         for(ColorType tryZone : values()) {
             if(tryZone._LowerByteBoundary <= pLowerBoundary)
