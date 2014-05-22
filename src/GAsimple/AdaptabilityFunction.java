@@ -1,32 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GAsimple;
-
-import java.util.List;
 
 /**
  *
  * @author L. Antonio Hidalgo
  */
 public class AdaptabilityFunction {
-    public static boolean checkApt(ZoneIndividual pIndividual, List<ZoneIndividual> pSameZoneIndividuals) {
-        boolean apt = false;
-        double positionsPerZone = 1. / pSameZoneIndividuals.size();
-        double prizeOfIndividual = pIndividual.getCostOfIndividual();
-        double prizesPerZoneSum = 0.;
+    public static int rankIndividual(WeaponIndividual pIndividual) {
+        int rank = 0; 
+        SpreadType weaponSpread;
         
-        for(ZoneIndividual sameZoneIndividual : pSameZoneIndividuals) {
-            prizesPerZoneSum += sameZoneIndividual.getCostOfIndividual();
+        weaponSpread = SpreadType.getSpreadType(pIndividual.getSpreadInt());
+        
+        switch (weaponSpread) {
+            case ONELANE:
+                rank = 1;
+                break;
+            case TWOLANES:
+                rank = 2;
+                break;
+            case THREELANES:
+                rank = 3;
+                break;
         }
-        
-        if((prizeOfIndividual / prizesPerZoneSum) > positionsPerZone)
-            apt = true;
-        
-        return apt;
-        
+        return rank;        
     }
 }

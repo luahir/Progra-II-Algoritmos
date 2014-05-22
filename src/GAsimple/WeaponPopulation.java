@@ -9,68 +9,23 @@ import java.util.List;
  */
 public class WeaponPopulation {
     private List<WeaponIndividual> _Population = new ArrayList<>();
+    private final int MAXPOPULATION = 20;
     
-    public WeaponPopulation() {
-        
-        for(int individual = 0; individual < 9; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.REG);
-            
-            _Population.add(tempIndividual);
+    public void addIndividual(WeaponIndividual pIndividual) {
+        if(_Population.size() == 20) {
+            killIndividual();
         }
         
-        for(int individual = 0; individual < 7; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
+        _Population.add(pIndividual);
             
-            tempIndividual.generateIndividual(PrizeType.K20);
-            
-            _Population.add(tempIndividual);
-        }
-        
-        for(int individual = 0; individual < 6; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.K50);
-            
-            _Population.add(tempIndividual);
-        }
-        
-        for(int individual = 0; individual < 6; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.K100);
-            
-            _Population.add(tempIndividual);
-        }
-        
-        for(int individual = 0; individual < 4; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.K200);
-            
-            _Population.add(tempIndividual);
-        }
-        
-        for(int individual = 0; individual < 4; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.K500);
-            
-            _Population.add(tempIndividual);
-        }
-        
-        for(int individual = 0; individual < 2; ++individual) {
-            WeaponIndividual tempIndividual = new WeaponIndividual();
-            
-            tempIndividual.generateIndividual(PrizeType.K1M);
-            
-            _Population.add(tempIndividual);
-        }
-        
     }
     
     public List<WeaponIndividual> getPopulation() {
         return _Population;
+    }
+    
+    private void killIndividual() {
+        int whoDies = (int)(20*Math.random());
+        _Population.remove(whoDies);
     }
 }
