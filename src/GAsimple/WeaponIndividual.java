@@ -1,110 +1,88 @@
 package GAsimple;
 
-import java.util.BitSet;
-import java.util.Random;
-
 /**
  *
  * @author L. Antonio Hidalgo
  */
 public class WeaponIndividual {
-    static int DEFAULTGENELENGTH = 8;
-    private BitSet _SpreadGenes = new BitSet(DEFAULTGENELENGTH);
-    private BitSet _ColorGenes = new BitSet(DEFAULTGENELENGTH);
-    private BitSet _ThicknessGenes = new BitSet(DEFAULTGENELENGTH);
-    private BitSet _ShapeGenes = new BitSet(DEFAULTGENELENGTH);
-    private int _SpreadInt;
-    private int _ColorInt;
-    private int _ThicknessInt;
-    private int _ShapeInt;
-    
-    public BitSet getSpreadGenes() {
+    private final int DEFAULTGENELENGTH = 256;
+    private byte _SpreadGenes;
+    private byte _ColorGenes;
+    private byte _ThicknessGenes;
+    private byte _ShapeGenes;
+
+    public byte getSpreadGenes() {
         return _SpreadGenes;
     }
 
-    public void setSpreadGenes(BitSet pSpreadGenes) {
-        _SpreadGenes = pSpreadGenes;
+    public void setSpreadGenes(byte _SpreadGenes) {
+        this._SpreadGenes = _SpreadGenes;
     }
 
-    public BitSet getColorGenes() {
+    public byte getColorGenes() {
         return _ColorGenes;
     }
 
-    public void setColorGenes(BitSet pColorGenes) {
-        _ColorGenes = pColorGenes;
+    public void setColorGenes(byte _ColorGenes) {
+        this._ColorGenes = _ColorGenes;
     }
 
-    public BitSet getThicknessGenes() {
+    public byte getThicknessGenes() {
         return _ThicknessGenes;
     }
 
-    public void setThicknessGenes(BitSet pThicknessGenes) {
-        _ThicknessGenes = pThicknessGenes;
+    public void setThicknessGenes(byte _ThicknessGenes) {
+        this._ThicknessGenes = _ThicknessGenes;
     }
 
-    public BitSet getShapeGenes() {
+    public byte getShapeGenes() {
         return _ShapeGenes;
     }
 
-    public void setShapeGenes(BitSet pShapeGenes) {
-        _ShapeGenes = pShapeGenes;
+    public void setShapeGenes(byte _ShapeGenes) {
+        this._ShapeGenes = _ShapeGenes;
     }
-
+    
+    
     public int getSpreadInt() {
-        return _SpreadInt;
+        return unsignedIntFromByte(_SpreadGenes);
     }
 
     public int getColorInt() {
-        return _ColorInt;
+        return unsignedIntFromByte(_ColorGenes);
     }
 
     public int getThicknessInt() {
-        return _ThicknessInt;
+        return unsignedIntFromByte(_ThicknessGenes);
     }
 
     public int getShapeInt() {
-        return _ShapeInt;
+        return unsignedIntFromByte(_ShapeGenes);
     }
     
-    
+    private int unsignedIntFromByte(byte pByte) {
+        return pByte & 0xFF;
+    }
     
     /**
      * Generates a new random individual
      */
     
     public void generateWeaponIndividual() {
-        Random randomBoolean = new Random();
+        _SpreadGenes = (byte) (DEFAULTGENELENGTH*Math.random());
+        _ColorGenes = (byte) (DEFAULTGENELENGTH*Math.random());
+        _ThicknessGenes = (byte) (DEFAULTGENELENGTH*Math.random());
+        _ShapeGenes = (byte) (DEFAULTGENELENGTH*Math.random());
         
-        for(int genePos = 0; genePos < size(); genePos++) {
-            _SpreadGenes.set(genePos, randomBoolean.nextBoolean());
-            _ColorGenes.set(genePos, randomBoolean.nextBoolean());
-            _ThicknessGenes.set(genePos, randomBoolean.nextBoolean());
-            _ShapeGenes.set(genePos, randomBoolean.nextBoolean());
-        }
-        
-        _SpreadInt = bitSetToInt(_SpreadGenes);
-        _ColorInt = bitSetToInt(_ColorGenes);
-        _ThicknessInt = bitSetToInt(_ThicknessGenes);
-        _ShapeInt = bitSetToInt(_ShapeGenes);
     }
     
     public int size() {
         return DEFAULTGENELENGTH;
     }
     
-    private int bitSetToInt(BitSet pBitset) {
-        int bitInteger = 0;
-        
-        for(int i = 0 ; i < pBitset.size(); i++)
-            if(pBitset.get(i))
-                bitInteger |= (1 << i);
-        return bitInteger;
-    }
-    
     public static void main(String[] args) {
         WeaponIndividual weaponTest = new WeaponIndividual();
         weaponTest.generateWeaponIndividual();
-        System.out.println(weaponTest.getColorGenes().toString());
         System.out.println(weaponTest.getColorInt());
     }
 }
