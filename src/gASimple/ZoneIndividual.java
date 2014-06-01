@@ -1,4 +1,4 @@
-package GAsimple;
+package gASimple;
 
 import java.util.BitSet;
 

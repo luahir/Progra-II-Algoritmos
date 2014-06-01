@@ -1,4 +1,4 @@
-package GAsimple;
+package gASimple;
 
 /**
  *
