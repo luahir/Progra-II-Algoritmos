@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author L. Antonio Hidalgo
+ * @author L. Antonio Hidalgo R.
  */
 public class WeaponPopulation {
     private List<WeaponIndividual> _Population = new ArrayList<>();

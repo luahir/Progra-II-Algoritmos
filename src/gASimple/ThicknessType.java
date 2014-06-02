@@ -2,8 +2,9 @@ package gASimple;
 
 /**
  *
- * @author L. Antonio Hidalgo
+ * @author L. Antonio Hidalgo R.
  */
+
 public enum ThicknessType {
     T5PX(0), 
     T6PX(23),
