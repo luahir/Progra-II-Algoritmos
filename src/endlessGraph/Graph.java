@@ -1,6 +1,8 @@
 package endlessGraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import lib.Direction;
@@ -8,83 +10,161 @@ import lib.Direction;
 /**
  * 
  * @author L. Antonio Hidalgo R.
- * Graph that represents the different intersections in the Endless Game. The node's ids are created using the LehmerTerms class.
+ * Graph that represents the different intersections in the Endless Game. The node's ids 
+ * are created using the LehmerTerm class.
  */
 
 public class Graph {
-	/* List that holds the player's movement choices. It has to hold a maximum of 60 choices at a time.
-	 * The level coincides with the element's index. 
-	 */
-	private List<Direction> _DirectionsList = new ArrayList<>();
-	
 	/* The graph is represented by a list, where the only nodes that exist are the ones the player has
 	 * visited.
 	 */
 	private List<Node> _CurrentGraphNodes = new ArrayList<>();
+	
+	// The root node is always the same, and is the first time an arc is added
 	private Node _Root = new Node(1, 2);
+	
+	// Current nodes that can be returned to are added to this HashMap. Only 3 are added per key.
+	private HashMap<Integer, List<Node>> _CurrentReturnNodes = new HashMap<Integer, List<Node>>();
+	
+	/* This HashMap addresses the "already visited nodes" problem. There are 4 lists that remember the
+	 * last 4 paths the player has taken.
+	 */
+	private LinkedHashMap<Long, List<Node>> _VisitedPaths = new LinkedHashMap<Long, List<Node>>();
+	
+	/* This HashMap contains the Lehmer term associated with a level. Given the id, the level
+	 * is the int value of that key. 
+	 */
+	private HashMap<Long, Integer> _Levels = new HashMap<>();
 	
 	public Graph() {
 		_CurrentGraphNodes.add(_Root);
 	}
 	
-	public List<Direction> getDirectionsList() {
-		return _DirectionsList;
-	}
-
 	public List<Node> getCurrentGraphNodes() {
 		return _CurrentGraphNodes;
 	}
 	
+	public HashMap<Integer, List<Node>> getCurrentReturnNodes() {
+		return _CurrentReturnNodes;
+	}
+	
+	public HashMap<Long, Integer> getLevels() {
+		return _Levels;
+	}
+
 	private Node getLastNode() {
 		return _CurrentGraphNodes.get(level() - 1);
+	}
+	
+	public HashMap<Long, List<Node>> getVisitedPaths() {
+		return _VisitedPaths;
 	}
 	
 	private int level() {
 		return _CurrentGraphNodes.size();
 	}
 	
+	private synchronized void addReturnNodes(int pIndex, Node pNode) {
+		List<Node> tempNodeList = _CurrentReturnNodes.get(pIndex); 
+		
+		if(tempNodeList == null) {
+			tempNodeList = new ArrayList<Node>();
+			_CurrentReturnNodes.put(pIndex, tempNodeList);
+		}
+		
+		int listLength = _CurrentReturnNodes.get(pIndex).size();
+		
+		switch(listLength) {
+			case 3:
+				_CurrentReturnNodes.get(pIndex).remove(listLength - 1);
+				_CurrentReturnNodes.get(pIndex).add(pNode);
+				break;
+			default:
+				_CurrentReturnNodes.get(pIndex).add(pNode);
+				break;
+		}
+	}
+	
 	/**
 	 * Adds a connection between the current node and the next, depending on the direction
-	 * the player chose.
+	 * the player chose (this updates the last node's direction, not the node being added to the graph).
 	 * @param pDirection, the direction the player chose to follow
 	 */
 	public void addArc(Direction pDirection) {
 		long newNodeId = LehmerTerm.nthTerm(level());
-		System.out.println(newNodeId+ pDirection.getDirectionValue());
 		int lastId = (int)((newNodeId + pDirection.getDirectionValue()) % 10);
 		int numberOfChildren;
-		System.out.println(lastId);
-		_DirectionsList.add(pDirection);
+		Node nodeToAdd;
+		Node lastNode = getLastNode();
+		Direction returnDirection;
 		
-		switch(lastId) {
+		if(!_Levels.containsKey(newNodeId))
+			_Levels.put(newNodeId, level());
+		
+		numberOfChildren = setChildrenFromDigit(lastId);
+		
+//		System.out.println("Last id: " + lastId);
+		
+		lastNode.setDirectionTaken(pDirection);
+		nodeToAdd = new Node(newNodeId, numberOfChildren);
+		
+		addNode(nodeToAdd);
+		
+		returnDirection = GraphPaths.returnDirection(lastNode);
+		
+//		System.out.println("Level: " + level());
+		
+		if(level() % 3 != 0)
+			addReturnNodes(level() % 3, lastNode);
+		else {
+			System.out.println("Return direction: " + returnDirection);
+			if(pDirection == returnDirection)
+				GraphPaths.returnPath(newNodeId, _CurrentReturnNodes, _CurrentGraphNodes, _VisitedPaths);
+		}
+			
+	}
+	
+	/**
+	 * Sets the number of children of a node, taking into account the node's id (its level) and
+	 * the direction taken to get there.
+	 * @param pId
+	 * @return the number of children a node has, based on pId
+	 */
+	private int setChildrenFromDigit(int pId) {
+		int numberOfChildren;
+		
+		switch(pId) {
 			case 1: case 2: case 3: case 4:
 				numberOfChildren = 2;
 				break;
-			case 5: case 6: case 7: case 8:
+			case 5: case 6: case 7: case 8: case 9:
 				numberOfChildren = 3;
 				break;
 			default:
 				numberOfChildren = 1;
 		}
 		
-		addNode(new Node(newNodeId, numberOfChildren));
+		return numberOfChildren;
 	}
 	
 	private void addNode(Node pNewNode) {
 		_CurrentGraphNodes.add(pNewNode);
 	}
 	
-	public void returnPath() {
-	// Return to a previously visited node. 	
-	}
 	public static void main(String[] args) {
 		Graph gPrueba = new Graph();
 		gPrueba.addArc(Direction.RIGHT2);
 		gPrueba.addArc(Direction.LEFT2);
-		gPrueba.addArc(Direction.RIGHT2);
-		gPrueba.addArc(Direction.RIGHT2);
 		gPrueba.addArc(Direction.CENTER3);
+		
+		gPrueba.addArc(Direction.RIGHT2);
+		gPrueba.addArc(Direction.RIGHT3);
+		gPrueba.addArc(Direction.LEFT2);
+		//gPrueba.addArc(Direction.RIGHT3);
+		//System.out.println(gPrueba.getLevels());
+		
 		System.out.println(gPrueba.getCurrentGraphNodes());
-		System.out.println(gPrueba.getDirectionsList());
+		System.out.println(gPrueba.getCurrentReturnNodes());
+		System.out.println(gPrueba.getVisitedPaths());
 	}
 }
