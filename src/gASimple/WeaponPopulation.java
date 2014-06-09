@@ -12,20 +12,23 @@ public class WeaponPopulation {
     private final int MAXPOPULATION = 20;
     
     public void addIndividual(WeaponIndividual pIndividual) {
-        if(_Population.size() == 20) {
+        if(_Population.size() == MAXPOPULATION) {
             killIndividual();
         }
         
-        _Population.add(pIndividual);
-            
+        _Population.add(pIndividual);    
     }
     
     public List<WeaponIndividual> getPopulation() {
         return _Population;
     }
     
+    public int size() {
+    	return _Population.size();
+    }
+    
     private void killIndividual() {
-        int whoDies = (int)(20*Math.random());
+        int whoDies = (int)(MAXPOPULATION*Math.random());
         _Population.remove(whoDies);
     }
 }

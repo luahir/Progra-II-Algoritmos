@@ -1,4 +1,4 @@
-package gASimple;
+package lib;
 
 /**
  *
@@ -16,7 +16,7 @@ public enum ShapeType {
         _LowerByteBoundary = pLowerByteBoundary;
     }
     
-    public static ShapeType getColorType(int pLowerBoundary) {
+    public static ShapeType getShapeType(int pLowerBoundary) {
         ShapeType zone = null;
         
         for(ShapeType tryZone : values()) {

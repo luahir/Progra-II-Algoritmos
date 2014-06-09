@@ -1,5 +1,7 @@
 package gASimple;
 
+import lib.SpreadType;
+
 /**
  *
  * @author L. Antonio Hidalgo
