@@ -28,7 +28,8 @@ public class WeaponPopulation {
     }
     
     private void killIndividual() {
-        int whoDies = (int)(MAXPOPULATION*Math.random());
+        System.out.println("Kill, kill, kill!");
+    	int whoDies = (int)(MAXPOPULATION*Math.random());
         _Population.remove(whoDies);
     }
 }

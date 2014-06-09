@@ -58,5 +58,14 @@ public class GeneAlgorithm {
 			_TheWeapon = GeneCrossover.crossover(_Population.getPopulation().get(0), _Population.getPopulation().get(0));
 	}
 	
-	
+//	public static void main(String[] args) {
+//		GeneAlgorithm pruebaGene = new GeneAlgorithm();
+//		for(int i = 0; i < 24; i++)
+//			pruebaGene.addWeapon();
+//
+//		System.out.println(pruebaGene.getTheWeapon().getColor());
+//		System.out.println(pruebaGene.getTheWeapon().getShape());
+//		System.out.println(pruebaGene.getTheWeapon().getSpread());
+//		System.out.println(pruebaGene.getTheWeapon().getThick());
+//	}
 }
