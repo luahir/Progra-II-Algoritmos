@@ -50,8 +50,8 @@ public class Node {
 	public void setDirectionTaken(Direction pDirection) {
 		if(checkValidDirection(pDirection))
 			_DirectionTaken = pDirection;
-		else
-			System.out.println("Invalid direction entered.");
+		//else
+			//System.out.println("Invalid direction entered. " + getNumberOfChildren() + " children " + "direction: " + pDirection);
 	}
 	
 	private boolean checkValidDirection(Direction pDirection) {

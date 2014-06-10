@@ -1,5 +1,7 @@
 package endlessGraph;
 
+import greedyA.GreedySuggestion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -35,6 +37,8 @@ public class Graph {
 	 * is the int value of that key. 
 	 */
 	private HashMap<Long, Integer> _Levels = new HashMap<>();
+	
+	private final double SUGGESTIONPROB = 0.1;
 	
 	public Graph() {
 		_CurrentGraphNodes.add(_Root);
@@ -103,6 +107,8 @@ public class Graph {
 		
 		numberOfChildren = setChildrenFromDigit(lastId);
 		
+		if((numberOfChildren == 2 || numberOfChildren == 3) && Math.random() < SUGGESTIONPROB)
+			GreedySuggestion.getSuggestion(lastNode, level() % 3, level());
 //		System.out.println("Last id: " + lastId);
 		
 		lastNode.setDirectionTaken(pDirection);
