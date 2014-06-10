@@ -72,6 +72,23 @@ public class GraphPaths {
 		return directionThatReturns;
 	}
 	
+	public static int setChildrenFromDigit(int pId) {
+		int numberOfChildren;
+		
+		switch(pId) {
+			case 1: case 2: case 3: case 4:
+				numberOfChildren = 2;
+				break;
+			case 5: case 6: case 7: case 8: case 9:
+				numberOfChildren = 3;
+				break;
+			default:
+				numberOfChildren = 1;
+		}
+		
+		return numberOfChildren;
+	}
+	
 	/**
 	 * Saves a path that has been already visited.
 	 * @param pNode

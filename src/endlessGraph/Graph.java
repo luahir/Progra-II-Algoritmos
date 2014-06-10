@@ -38,7 +38,13 @@ public class Graph {
 	 */
 	private HashMap<Long, Integer> _Levels = new HashMap<>();
 	
+	/* This is the probability that a suggestion occurs for nodes of 2 or 3 children. */
 	private final double SUGGESTIONPROB = 0.1;
+	
+	/* This constant is used to check the number of levels the player has passed. It can't be more than 60, because
+	 * that would violate the amount of nodes the graph should have. 
+	 */
+	private final int MAXLEVELS = 60; 
 	
 	public Graph() {
 		_CurrentGraphNodes.add(_Root);
@@ -102,10 +108,13 @@ public class Graph {
 		Node lastNode = getLastNode();
 		Direction returnDirection;
 		
+		if(checkLastLevel(level()))
+				System.out.println("You have reached the end of the game! Congratulations!");
+		
 		if(!_Levels.containsKey(newNodeId))
 			_Levels.put(newNodeId, level());
 		
-		numberOfChildren = setChildrenFromDigit(lastId);
+		numberOfChildren = GraphPaths.setChildrenFromDigit(lastId);
 		
 		if((numberOfChildren == 2 || numberOfChildren == 3) && Math.random() < SUGGESTIONPROB)
 			GreedySuggestion.getSuggestion(lastNode, level() % 3, level());
@@ -136,25 +145,13 @@ public class Graph {
 	 * @param pId
 	 * @return the number of children a node has, based on pId
 	 */
-	private int setChildrenFromDigit(int pId) {
-		int numberOfChildren;
-		
-		switch(pId) {
-			case 1: case 2: case 3: case 4:
-				numberOfChildren = 2;
-				break;
-			case 5: case 6: case 7: case 8: case 9:
-				numberOfChildren = 3;
-				break;
-			default:
-				numberOfChildren = 1;
-		}
-		
-		return numberOfChildren;
-	}
 	
 	private void addNode(Node pNewNode) {
 		_CurrentGraphNodes.add(pNewNode);
+	}
+	
+	private boolean checkLastLevel(int pLevel) {
+		return (pLevel > MAXLEVELS);
 	}
 	
 	public static void main(String[] args) {

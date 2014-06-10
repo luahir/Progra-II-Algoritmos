@@ -6,12 +6,17 @@ import java.util.List;
 
 import lib.Direction;
 
+import endlessGraph.GraphPaths;
 import endlessGraph.LehmerTerm;
 import endlessGraph.Node;
 
 public class GreedySuggestion {
 	
-	// This greedy algorithm considers  
+	/* This greedy algorithm considers the nodes that have a return path
+	 * at level pLevel + pDepth and suggests taking the route that ends with
+	 * a 3-children node.
+	 */
+	
 	public static Direction getSuggestion(Node pNode, int pDepth, int pLevel) {
 		HashMap<Integer, Node> possibleSolutions = new HashMap<>(); 
 		int children = pNode.getNumberOfChildren();
@@ -76,7 +81,7 @@ public class GreedySuggestion {
 		Node nodeToAdd;
 		Node lastNode = pPath.get(pPath.size() - 1);
 		
-		numberOfChildren = setChildrenFromDigit(lastId);
+		numberOfChildren = GraphPaths.setChildrenFromDigit(lastId);
 		//System.out.println(pDirection);
 		lastNode.setDirectionTaken(pDirection);
 		nodeToAdd = new Node(newNodeId, numberOfChildren);
@@ -103,22 +108,7 @@ public class GreedySuggestion {
 			
 	}
 	
-	private static int setChildrenFromDigit(int pId) {
-		int numberOfChildren;
-		
-		switch(pId) {
-			case 1: case 2: case 3: case 4:
-				numberOfChildren = 2;
-				break;
-			case 5: case 6: case 7: case 8: case 9:
-				numberOfChildren = 3;
-				break;
-			default:
-				numberOfChildren = 1;
-		}
-		
-		return numberOfChildren;
-	}
+	
 	
 	private static Direction bestDirection(HashMap<Integer, Node> pNodes, int pChildren) {
 		int count0 = 0;
